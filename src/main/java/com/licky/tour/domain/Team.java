@@ -11,4 +11,5 @@ public class Team implements Serializable {
     private String name;
 
     private static final long serialVersionUID = 1L;
+
 }

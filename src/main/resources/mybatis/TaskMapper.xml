@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.licky.tour.mapper.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.licky.tour.domain.Task">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="planning_time" jdbcType="TIMESTAMP" property="planningTime" />
+    <result column="completed_time" jdbcType="TIMESTAMP" property="completedTime" />
+    <result column="completed_flag" jdbcType="TINYINT" property="completedFlag" />
+    <result column="team_id" jdbcType="INTEGER" property="teamId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, content, longitude, latitude, create_time, planning_time, completed_time, completed_flag,
+    team_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectTaskListByUsername" parameterType="User" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from task
+    where team_id = (
+    SELECT team_id from user
+    WHERE username = #{username}
+    )
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.licky.tour.domain.Task">
+    insert into task (id, title, content, 
+      longitude, latitude, planning_time, 
+      completed_time, completed_flag, team_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{planningTime,jdbcType=TIMESTAMP}, 
+      #{completedTime,jdbcType=TIMESTAMP}, #{completedFlag,jdbcType=TINYINT}, #{teamId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.licky.tour.domain.Task">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="planningTime != null">
+        planning_time,
+      </if>
+      <if test="completedTime != null">
+        completed_time,
+      </if>
+      <if test="completedFlag != null">
+        completed_flag,
+      </if>
+      <if test="teamId != null">
+        team_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="planningTime != null">
+        #{planningTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completedTime != null">
+        #{completedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completedFlag != null">
+        #{completedFlag,jdbcType=TINYINT},
+      </if>
+      <if test="teamId != null">
+        #{teamId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.licky.tour.domain.Task">
+    update task
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="planningTime != null">
+        planning_time = #{planningTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completedTime != null">
+        completed_time = #{completedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completedFlag != null">
+        completed_flag = #{completedFlag,jdbcType=TINYINT},
+      </if>
+      <if test="teamId != null">
+        team_id = #{teamId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.licky.tour.domain.Task">
+    update task
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      planning_time = #{planningTime,jdbcType=TIMESTAMP},
+      completed_time = #{completedTime,jdbcType=TIMESTAMP},
+      completed_flag = #{completedFlag,jdbcType=TINYINT},
+      team_id = #{teamId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

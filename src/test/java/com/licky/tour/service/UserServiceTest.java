@@ -1,6 +1,7 @@
 package com.licky.tour.service;
 
 
+import com.licky.tour.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,11 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
-    public void InsertUserTest01(){
-        userService.insertUser();
+    public void InsertUserTest02(){
+        User user = new User();
+        user.setUsername("user");
+        userService.selectUsersInSameTeam(user).ifPresent(users -> {
+            System.out.println(users);
+        });
     }
 }

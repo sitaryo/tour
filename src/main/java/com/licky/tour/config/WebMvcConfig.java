@@ -20,22 +20,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/access").setViewName("access");
+        registry.addViewController("/la").setViewName("index");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
-//    @Override
-//    public void configureViewResolvers(ViewResolverRegistry registry) {
-//        registry.viewResolver(getViewResolver());
-//    }
-//
-//    @Bean
-//    public InternalResourceViewResolver getViewResolver(){
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("classpath:/template/");
-//        resolver.setSuffix(".html");
-//        return resolver;
-//    }
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.viewResolver(getViewResolver());
+    }
+
+    @Bean
+    public InternalResourceViewResolver getViewResolver(){
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("classpath:/");
+        resolver.setSuffix(".html");
+        return resolver;
+    }
 
 }

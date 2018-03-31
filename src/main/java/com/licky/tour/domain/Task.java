@@ -6,20 +6,26 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class Notice implements Serializable {
+public class Task implements Serializable {
     private Integer id;
 
     private String title;
 
     private String content;
 
-    private Integer teamId;
+    private String longitude;
 
-    private Boolean active;
+    private String latitude;
 
     private Date createTime;
 
-    private Date updateTime;
+    private Date planningTime;
+
+    private Date completedTime;
+
+    private Byte completedFlag;
+
+    private Integer teamId;
 
     private static final long serialVersionUID = 1L;
 

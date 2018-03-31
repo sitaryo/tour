@@ -1,6 +1,7 @@
 package com.licky.tour.domain;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.Serializable;
 
@@ -10,9 +11,11 @@ public class User implements Serializable {
 
     private String username;
 
+    private String nickname;
+
     private String password;
 
-    private Byte sex;
+    private Boolean sex;
 
     private String longitude;
 
@@ -24,5 +27,18 @@ public class User implements Serializable {
 
     private Integer teamId;
 
+    private Boolean active;
+
     private static final long serialVersionUID = 1L;
+
+    @Getter
+    public enum Sex {
+        MAN(true),
+        WOMAN(false);
+        Boolean s;
+
+        Sex(boolean b) {
+            this.s = b;
+        }
+    }
 }

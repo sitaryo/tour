@@ -13,4 +13,5 @@ public class HeadPic implements Serializable {
     private Integer userId;
 
     private static final long serialVersionUID = 1L;
+
 }
